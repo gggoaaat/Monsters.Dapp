@@ -102,8 +102,8 @@ const MintPage = () => {
                   A blockchain project making the world a better place.
                 </h3>
                 <h4 className="subtitle font-light">
-                  An original collection consisting of 8,888 unique Forks living on the Ethereum blockchain
-                  <br /> Inspired by EIP-1559
+                  An original collection consisting of 3,333 unique Monsters living on the Ethereum blockchain
+                  <br />
                 </h4>
                 <a
                   onClick={() => walletBridge1.showWeb3Modal()}
@@ -111,7 +111,7 @@ const MintPage = () => {
                 >
                   Connect Wallet
                 </a>
-                <Link href="https://www.wtforksnft.com/">
+                <Link href={process.env.siteTitle}>
                   <a className="btn btn-md m-t-30  btn-outline-light ">
                     Back Home
                   </a>

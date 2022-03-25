@@ -5,10 +5,10 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>WTForks Minting Dapp</title>
+        <title>{process.env.siteTitle}</title>
         <meta
           name="description"
-          content="WTForks Minting Dapp"
+          content={process.env.siteTitle}
         />
 
         <link rel="icon" href="/favicon.ico" />

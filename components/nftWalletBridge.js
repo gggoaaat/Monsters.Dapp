@@ -263,7 +263,7 @@ export default function NFTWalletBridge(e) {
 
         if (process.env.mintType == "Public") {
             let txTransfer = await contract.methods
-                .openKitchenMint(false, process.env.messagehash, process.env.signatureBytes, process.env.messagehash, process.env.messagehash2, process.env.signatureBytes2, Amount)
+                .openKitchenMint(process.env.messagehash, Amount)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];
@@ -285,7 +285,7 @@ export default function NFTWalletBridge(e) {
         }
         if (process.env.mintType == "Pre-Sale") {
             let txTransfer1 = await contract.methods
-                .privateBanquetMint(false, process.env.messagehash, process.env.messagehash2, process.env.messagehash, process.env.messagehash2, process.env.signatureBytes2, Amount)
+                .privateBanquetMint(process.env.messagehash, Amount)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];

@@ -37,7 +37,7 @@ const Header = () => {
             >
               <Nav navbar className="ml-auto">
                 <NavItem>
-                  <Link href="https://www.wtforksnft.com/">
+                  <Link href={process.env.siteTitle}>
                     <a
                       className={
                         router.pathname == "/"
@@ -50,7 +50,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://www.twitter.com/wtforksnft?s=21">
+                  <Link href="https://twitter.com/MONSTERCOMMUNE">
                     <a
                       className={
                         router.pathname == "/basic"
@@ -63,7 +63,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://discord.com/invite/KFApTM5rxZ">
+                  <Link href="https://discord.gg/nvzQRQBn">
                     <a
                       className={
                         router.pathname == "/basic"
@@ -76,7 +76,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://opensea.io/collection/wtforksnft">
+                  <Link href="https://testnets.opensea.io/collection/suitsonsuits-nft">
                     <a
                       className={
                         router.pathname == "/basic"
@@ -87,33 +87,7 @@ const Header = () => {
                       OpenSea
                     </a>
                   </Link>
-                </NavItem>
-                <NavItem>
-                  <Link href="https://vm.tiktok.com/TTPdBAmDWd/">
-                    <a
-                      className={
-                        router.pathname == "/basic"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Tik Tok
-                    </a>
-                  </Link>
-                </NavItem>
-                <NavItem>
-                  <Link href="https://www.instagram.com/wtforksnft?utm_medium=copy_link">
-                    <a
-                      className={
-                        router.pathname == "/basic"
-                          ? "text-white nav-link"
-                          : "nav-link"
-                      }
-                    >
-                      Instagram
-                    </a>
-                  </Link>
-                </NavItem>
+                </NavItem>                
               </Nav>
               {/* <div className="act-buttons">
                 <NavLink
