@@ -4,16 +4,6 @@ export default function ContractABI() {
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "firstAddy",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "secondAddy",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
                     "name": "_vault",
                     "type": "address"
                 },
@@ -141,6 +131,24 @@ export default function ContractABI() {
         {
             "inputs": [
                 {
+                    "internalType": "bytes32",
+                    "name": "mThree",
+                    "type": "bytes32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "afterHoursMonsterMint",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "address",
                     "name": "to",
                     "type": "address"
@@ -188,19 +196,19 @@ export default function ContractABI() {
             "stateMutability": "view",
             "type": "function"
         },
-        // {
-        //     "inputs": [
-        //         {
-        //             "internalType": "uint256",
-        //             "name": "tokenId",
-        //             "type": "uint256"
-        //         }
-        //     ],
-        //     "name": "burn",
-        //     "outputs": [],
-        //     "stateMutability": "nonpayable",
-        //     "type": "function"
-        // },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "burn",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
         {
             "inputs": [
                 {
@@ -233,24 +241,6 @@ export default function ContractABI() {
             "stateMutability": "view",
             "type": "function"
         },
-        // {
-        //     "inputs": [
-        //         {
-        //             "internalType": "address",
-        //             "name": "to",
-        //             "type": "address"
-        //         },
-        //         {
-        //             "internalType": "uint256",
-        //             "name": "amount",
-        //             "type": "uint256"
-        //         }
-        //     ],
-        //     "name": "houseMint",
-        //     "outputs": [],
-        //     "stateMutability": "nonpayable",
-        //     "type": "function"
-        // },
         {
             "inputs": [
                 {
@@ -277,19 +267,6 @@ export default function ContractABI() {
         },
         {
             "inputs": [],
-            "name": "kitchenIsOpen",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [],
             "name": "mTL",
             "outputs": [
                 {
@@ -303,7 +280,7 @@ export default function ContractABI() {
         },
         {
             "inputs": [],
-            "name": "maxPrivateBanquetMeals",
+            "name": "maxAfterHoursMonsterMints",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -312,6 +289,24 @@ export default function ContractABI() {
                 }
             ],
             "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "monsterMint",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -330,42 +325,17 @@ export default function ContractABI() {
         {
             "inputs": [
                 {
-                    "internalType": "bool",
-                    "name": "mH",
-                    "type": "bool"
-                },
-                {
-                    "internalType": "bytes32",
-                    "name": "mOne",
-                    "type": "bytes32"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "mTwo",
-                    "type": "bytes"
-                },
-                {
                     "internalType": "bytes32",
                     "name": "mThree",
                     "type": "bytes32"
                 },
                 {
-                    "internalType": "bytes32",
-                    "name": "mFour",
-                    "type": "bytes32"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "mFive",
-                    "type": "bytes"
-                },
-                {
                     "internalType": "uint256",
-                    "name": "a",
+                    "name": "quantity",
                     "type": "uint256"
                 }
             ],
-            "name": "openKitchenMint",
+            "name": "openMonsterMint",
             "outputs": [],
             "stateMutability": "payable",
             "type": "function"
@@ -404,7 +374,7 @@ export default function ContractABI() {
         },
         {
             "inputs": [],
-            "name": "privateBanquetIsOpen",
+            "name": "privateMintIsOpen",
             "outputs": [
                 {
                     "internalType": "bool",
@@ -416,46 +386,16 @@ export default function ContractABI() {
             "type": "function"
         },
         {
-            "inputs": [
+            "inputs": [],
+            "name": "publicMintIsOpen",
+            "outputs": [
                 {
                     "internalType": "bool",
-                    "name": "mH",
+                    "name": "",
                     "type": "bool"
-                },
-                {
-                    "internalType": "bytes32",
-                    "name": "mOne",
-                    "type": "bytes32"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "mTwo",
-                    "type": "bytes"
-                },
-                {
-                    "internalType": "bytes32",
-                    "name": "mThree",
-                    "type": "bytes32"
-                },
-                {
-                    "internalType": "bytes32",
-                    "name": "mFour",
-                    "type": "bytes32"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "mFive",
-                    "type": "bytes"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
                 }
             ],
-            "name": "privateBanquetMint",
-            "outputs": [],
-            "stateMutability": "payable",
+            "stateMutability": "view",
             "type": "function"
         },
         {
@@ -602,19 +542,6 @@ export default function ContractABI() {
         {
             "inputs": [
                 {
-                    "internalType": "address",
-                    "name": "newVault",
-                    "type": "address"
-                }
-            ],
-            "name": "setPantryAddress",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "uint256",
                     "name": "newPrice",
                     "type": "uint256"
@@ -626,22 +553,22 @@ export default function ContractABI() {
                 },
                 {
                     "internalType": "uint256",
-                    "name": "setOpenKitchenMintLimit",
+                    "name": "setopenMonsterMintLimit",
                     "type": "uint256"
                 },
                 {
                     "internalType": "uint256",
-                    "name": "setPrivateBanquetMintLimit",
+                    "name": "setafterHoursMonsterMintLimit",
                     "type": "uint256"
                 },
                 {
                     "internalType": "bool",
-                    "name": "setKitchenState",
+                    "name": "setPublicMintState",
                     "type": "bool"
                 },
                 {
                     "internalType": "bool",
-                    "name": "setPrivateBanquetState",
+                    "name": "setPrivateMintState",
                     "type": "bool"
                 }
             ],
@@ -659,24 +586,6 @@ export default function ContractABI() {
                 }
             ],
             "name": "setRevealed",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "newSigner",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "newSigner2",
-                    "type": "address"
-                }
-            ],
-            "name": "setSignerAddress",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -710,8 +619,21 @@ export default function ContractABI() {
         {
             "inputs": [
                 {
+                    "internalType": "address",
+                    "name": "newVault",
+                    "type": "address"
+                }
+            ],
+            "name": "setVaultAddress",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
                     "internalType": "uint256",
-                    "name": "newprivateBanquetLimit",
+                    "name": "newprivateMintLimit",
                     "type": "uint256"
                 }
             ],
@@ -752,20 +674,20 @@ export default function ContractABI() {
             "stateMutability": "view",
             "type": "function"
         },
-        // {
-        //     "inputs": [],
-        //     "name": "toggleCooking",
-        //     "outputs": [],
-        //     "stateMutability": "nonpayable",
-        //     "type": "function"
-        // },
-        // {
-        //     "inputs": [],
-        //     "name": "togglePresaleCooking",
-        //     "outputs": [],
-        //     "stateMutability": "nonpayable",
-        //     "type": "function"
-        // },
+        {
+            "inputs": [],
+            "name": "toggleCooking",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "togglePresaleCooking",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
         {
             "inputs": [],
             "name": "tokenPrice",
@@ -779,25 +701,25 @@ export default function ContractABI() {
             "stateMutability": "view",
             "type": "function"
         },
-        // {
-        //     "inputs": [
-        //         {
-        //             "internalType": "uint256",
-        //             "name": "_tokenId",
-        //             "type": "uint256"
-        //         }
-        //     ],
-        //     "name": "tokenURI",
-        //     "outputs": [
-        //         {
-        //             "internalType": "string",
-        //             "name": "",
-        //             "type": "string"
-        //         }
-        //     ],
-        //     "stateMutability": "view",
-        //     "type": "function"
-        // },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "tokenURI",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
         {
             "inputs": [],
             "name": "totalSupply",
@@ -873,13 +795,13 @@ export default function ContractABI() {
             "stateMutability": "view",
             "type": "function"
         },
-        // {
-        //     "inputs": [],
-        //     "name": "withdraw",
-        //     "outputs": [],
-        //     "stateMutability": "nonpayable",
-        //     "type": "function"
-        // },
+        {
+            "inputs": [],
+            "name": "withdraw",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
         {
             "stateMutability": "payable",
             "type": "receive"

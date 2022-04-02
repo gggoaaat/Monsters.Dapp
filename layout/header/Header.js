@@ -12,7 +12,7 @@ import {
   Container,
   NavLink,
 } from "reactstrap";
-import logo from "../../assets/images/logos/white-text.png";
+import logo from "../../assets/images/logos/monster-logo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +37,7 @@ const Header = () => {
             >
               <Nav navbar className="ml-auto">
                 <NavItem>
-                  <Link href={process.env.siteTitle}>
+                  <Link href={process.env.mainWWW}>
                     <a
                       className={
                         router.pathname == "/"

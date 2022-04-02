@@ -97,8 +97,8 @@ const MintPage = () => {
           <Row className="">
             {(!currentUseState.isConnected) ?
               <Col lg="6" md="6" className="align-self-center">
-                <br></br>
-                <h3>DEMO ONLY RINKEBY</h3>
+                <br></br><br></br>
+                <h3 style={{ "padding-top": "25px" }}>DEMO ONLY RINKEBY</h3>
                 <h3 className="title">
                   A blockchain project built by Community.
                 </h3>
@@ -108,12 +108,12 @@ const MintPage = () => {
                 </h4>
                 <a
                   onClick={() => walletBridge1.showWeb3Modal()}
-                  className="btn btn-success m-r-20 btn-md m-t-30 "
+                  className="btn btn-success m-r-20 btn-md m-t-30 " style={{ "background-color" : "#C2C2C2"}}
                 >
                   Connect Wallet
                 </a>
-                <Link href={process.env.siteTitle}>
-                  <a className="btn btn-md m-t-30  btn-outline-light ">
+                <Link href={process.env.mainWWW}>
+                  <a className="btn btn-md m-t-30  btn-outline-light " style={{ "background-color" : "#760680"}}>
                     Back Home
                   </a>
                 </Link>
@@ -130,7 +130,7 @@ const MintPage = () => {
                   Contract : <strong>{process.env.contractAddress}</strong>
                   <br />
                 </p>
-                {(currentUseState.xmPower.isWhiteListed == true) ?
+                {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
                   <><label className="connected">Number to mint (1-{process.env.maxMintCount}):</label>
 
                     <div className="">
