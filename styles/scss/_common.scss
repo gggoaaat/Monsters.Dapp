@@ -69,8 +69,9 @@ Header 6
   min-height: 600px;
   display: flex;
 
-  background-color: #f0a8ce;
-  background-image: url('../../public/background.png');
+  background-color: #000;
+  background-image: url('../../public/background.png')  ;
+
 
   .title {
     color: $white;

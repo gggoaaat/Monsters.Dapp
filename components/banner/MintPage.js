@@ -2,7 +2,7 @@ import React, { useReducer, useState, useEffect } from 'react';
 import Link from "next/link";
 import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
-import bannerimg from "../../assets/images/landingpage/banner-img.png";
+import bannerimg from "../../assets/images/landingpage/monster.gif";
 import NFTWalletBridge from '../nftWalletBridge'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
@@ -86,19 +86,16 @@ const MintPage = () => {
     }
   }
 
-  let newValue = process.env.mintType == "Public" ? process.env.ethValue : process.env.ethWLValue
-
+  let newValue = process.env.mintType == "Public" ? process.env.ethValue : process.env.ethWLValue;
 
   return (
     <>
       <div className="static-slider-head banner2">
         <Container>
-
           <Row className="">
             {(!currentUseState.isConnected) ?
-              <Col lg="6" md="6" className="align-self-center">
-                <br></br><br></br>
-                <h3 style={{ paddingTop: "25px" }}>DEMO ONLY RINKEBY</h3>
+              <Col lg="6" md="6" className="align-self-center">                
+                <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3>
                 <h3 className="title">
                   A blockchain project built by Community.
                 </h3>
@@ -108,12 +105,12 @@ const MintPage = () => {
                 </h4>
                 <a
                   onClick={() => walletBridge1.showWeb3Modal()}
-                  className="btn btn-success m-r-20 btn-md m-t-30 " style={{ backgroundColor : "#C2C2C2"}}
+                  className="btn btn-success m-r-20 btn-md m-t-30 " style={{ backgroundColor: "#C2C2C2" }}
                 >
                   Connect Wallet
                 </a>
                 <Link href={process.env.mainWWW}>
-                  <a className="btn btn-md m-t-30  btn-outline-light " style={{ backgroundColor : "#760680"}}>
+                  <a className="btn btn-md m-t-30  btn-outline-light " style={{ backgroundColor: "#760680" }}>
                     Back Home
                   </a>
                 </Link>
@@ -167,12 +164,14 @@ const MintPage = () => {
                 <h4 className="subtitle font-light">
                   NFT&apos;s minted {currentUseState.numMinted} of {process.env.maxMint}
                 </h4>
-                <br/>
+                <br />
                 {currentUseState.hashHtml}
               </Col>
             }
-            <Col lg="6" md="6">
-              <Image src={bannerimg} alt="WTForks Couple in a tub" />
+            <Col lg="6" md="6" >
+              <div style={{ paddingTop: "120px", paddingBottom: "100px"  }}>
+                <Image src={bannerimg} alt="WTForks Couple in a tub" />
+              </div>
             </Col>
           </Row>
         </Container>
