@@ -8,6 +8,11 @@ export default function ContractABI() {
                     "type": "address"
                 },
                 {
+                    "internalType": "address",
+                    "name": "_signer",
+                    "type": "address"
+                },
+                {
                     "internalType": "string",
                     "name": "__baseTokenURI",
                     "type": "string"
@@ -117,6 +122,19 @@ export default function ContractABI() {
         },
         {
             "inputs": [],
+            "name": "Author",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
             "name": "MAX_TOKENS",
             "outputs": [
                 {
@@ -131,14 +149,36 @@ export default function ContractABI() {
         {
             "inputs": [
                 {
-                    "internalType": "bytes32",
-                    "name": "mThree",
-                    "type": "bytes32"
+                    "internalType": "uint8",
+                    "name": "quantity",
+                    "type": "uint8"
                 },
                 {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
+                    "internalType": "uint8",
+                    "name": "claimable",
+                    "type": "uint8"
+                },
+                {
+                    "components": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "r",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "s",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint8",
+                            "name": "v",
+                            "type": "uint8"
+                        }
+                    ],
+                    "internalType": "struct SuitsOnSuits.MonsterPass",
+                    "name": "monsterPass",
+                    "type": "tuple"
                 }
             ],
             "name": "afterHoursMonsterMint",
@@ -324,11 +364,6 @@ export default function ContractABI() {
         },
         {
             "inputs": [
-                {
-                    "internalType": "bytes32",
-                    "name": "mThree",
-                    "type": "bytes32"
-                },
                 {
                     "internalType": "uint256",
                     "name": "quantity",
@@ -586,6 +621,19 @@ export default function ContractABI() {
                 }
             ],
             "name": "setRevealed",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newSigner",
+                    "type": "address"
+                }
+            ],
+            "name": "setSignerAddress",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"

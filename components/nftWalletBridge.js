@@ -2,7 +2,8 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import React, { useReducer, useState, useEffect } from 'react';
 import ContractABI from "./logoABI"
-import Whitelist4 from "./Whitelist4";
+import Whitelist from "./Whitelist";
+import { ethers } from "ethers";
 
 let provider = null;
 let web3 = null;
@@ -43,8 +44,6 @@ export default function NFTWalletBridge(e) {
         provider = null;
         try {
 
-
-
             const web3Modal = new Web3Modal({
                 cacheProvider: false, // optional
                 providerOptions
@@ -62,7 +61,7 @@ export default function NFTWalletBridge(e) {
 
                 networkId = await web3.eth.net.getId();
 
-                connectedWalletAddress = accounts[0].toLowerCase();
+                connectedWalletAddress = ethers.utils.getAddress(accounts[0])
 
                 contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas });
                 let totalShares = await contract.methods.totalSupply.call()
@@ -77,7 +76,7 @@ export default function NFTWalletBridge(e) {
                 balance2 = web3.utils.fromWei(balance2, "ether")
                 const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
                 
-                let thisReturn = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
+                let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
                 // let thisReturn = false
                 // if ((mintType == "Pre-Sale" && whitelist.indexOf(connectedWalletAddress) > -1) || mintType == "Public" )
                 // {
@@ -85,7 +84,7 @@ export default function NFTWalletBridge(e) {
                 // } 
                 
                 setTokenBalance({ trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered , 
-                    isWhiteListed : thisReturn
+                    isWhiteListed : isThisAddressOnWhitelist
                 });
             }
         }
@@ -95,11 +94,7 @@ export default function NFTWalletBridge(e) {
     async function CheckIfOnWhitelist(saleType, thisAddress) {
         let displayMint = false;
 
-        const whitelist = Whitelist4();
-        let lowerCaseWhitelist = []
-        whitelist.forEach(element => {
-            lowerCaseWhitelist.push(element.toLowerCase())
-        });
+        const whitelist = Whitelist();
 
         //console.log(lowerCaseWhitelist)
 
@@ -107,7 +102,7 @@ export default function NFTWalletBridge(e) {
             displayMint = true;
         }
         else {           
-            if (lowerCaseWhitelist.indexOf(thisAddress.toLowerCase()) > -1) {
+            if (whitelist[thisAddress] != null && whitelist[thisAddress] != undefined) {
                 displayMint = true;
             }
         }
@@ -263,7 +258,7 @@ export default function NFTWalletBridge(e) {
 
         if (process.env.mintType == "Public") {
             let txTransfer = await contract.methods
-                .openMonsterMint(process.env.messagehash, Amount)
+                .openMonsterMint(Amount)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];
@@ -281,11 +276,15 @@ export default function NFTWalletBridge(e) {
                     setErrorMessage(e.message)
                     console.log(e)
                 });
+        }        
 
-        }
-        if (process.env.mintType == "Pre-Sale") {
+        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
+        if (process.env.mintType == "Pre-Sale" && isThisAddressOnWhitelist) {
+            
+            let thisWL = Whitelist();            
+
             let txTransfer1 = await contract.methods
-                .afterHoursMonsterMint(process.env.messagehash, Amount)
+                .afterHoursMonsterMint(Amount, thisWL[connectedWalletAddress].q, thisWL[connectedWalletAddress].monsterPass)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];

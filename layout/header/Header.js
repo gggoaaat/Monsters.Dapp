@@ -50,7 +50,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://twitter.com/MONSTERCOMMUNE">
+                  <Link href={process.env.links.twitter}>
                     <a
                       className={
                         router.pathname == "/basic"
@@ -63,7 +63,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://discord.gg/nvzQRQBn">
+                  <Link href={process.env.links.discord}>
                     <a
                       className={
                         router.pathname == "/basic"
@@ -76,7 +76,7 @@ const Header = () => {
                   </Link>
                 </NavItem>
                 <NavItem>
-                  <Link href="https://testnets.opensea.io/collection/suitsonsuits-nft">
+                <Link href={process.env.links.opensea}>
                     <a
                       className={
                         router.pathname == "/basic"

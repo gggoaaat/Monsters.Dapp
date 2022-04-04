@@ -5,16 +5,13 @@ module.exports = {
   analyticsId: '7vsHWbYwcKpA3lFTng2Qe9iNzE7',
   env: {
     siteTitle: "The Monster Community Minting Dapp",
-    contractAddress: "0x679359F8a4596cc3A36679D1F79c57Ae31aF63de",
-    // contractAddress: "0x07397CA50D7526fBCe638b7428FD9eE98edCB67b",
-    //contractAddress: "0x88A4Ccd8400a825a567017B8FB09133797c136aC",
-    //contractAddress : "0x98631c69602083d04f83934576a53e2a133d482f",
+    contractAddress: "0xeCb06Cd27B22FAE161804CDA1c56ac23B39650bd",
     infuraID: "045e9c65387a4200aa8559c347fa19a4",
     defaultGas: 125000,//75000,
     mintType : "Pre-Sale", //Pre-Sale Public
     enforceWhitelist : false,
-    ethValue : "0.07",
-    ethWLValue : "0.055",
+    ethValue : "0.05",
+    ethWLValue : "0.0",
     debug: false,
     network: 'rinkeby',
     chainId: 4,
@@ -23,7 +20,12 @@ module.exports = {
     www: 'https://monsters-dapp.vercel.app/',
     mainWWW: 'https://monsters-dapp.vercel.app/',
     title: 'The Monster Community',
-    maxMint: 8888,
+    links : {
+      opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft",
+      discord : "https://discord.gg/nvzQRQBn",
+      twitter : "https://twitter.com/MONSTERCOMMUNE"
+    },
+    maxMint: 3333,
     maxMintCount: 10,
     messagehash: '0x865f293da4a629f00bd8072be6115031c608fa4a13b819fd087811752fc8bb90',
     signatureBytes: '0x4b7715f34823936b045d1e5ca6c295b7f5ecff3d0c158118c71441ed217c3ddb026617ce49dc15781bdb25c8c34ed4a1f4d68df6080f6dd0004511cf05032bf01c',
