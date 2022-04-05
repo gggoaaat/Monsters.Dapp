@@ -21,7 +21,7 @@ module.exports = {
     mainWWW: 'https://monsters-dapp.vercel.app/',
     title: 'The Monster Community',
     links : {
-      opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft-v2",
+      opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft-2nrkgqhyvw",
       discord : "https://discord.gg/nvzQRQBn",
       twitter : "https://twitter.com/MONSTERCOMMUNE"
     },
