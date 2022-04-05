@@ -112,7 +112,7 @@ const AdminComponents = () => {
 
                       {/* <!-- Button --> */}
                       <div className="form-group">
-                        <label className="col-md-4 control-label" for="togglePublicMint">Public Mint</label>
+                        <label className="col-md-4 control-label" htmlFor="togglePublicMint">Public Mint</label>
                         <div className="col-md-4">
                           <button id="togglePublicMint" name="togglePublicMint" className="btn btn-primary"  onClick={() => togglePublicMint()}>Toggle</button>
                         </div>
@@ -120,7 +120,7 @@ const AdminComponents = () => {
 
                       {/* <!-- Button --> */}
                       <div className="form-group">
-                        <label className="col-md-4 control-label" for="togglePresaleMint">Presale Mint</label>
+                        <label className="col-md-4 control-label" htmlFor="togglePresaleMint">Presale Mint</label>
                         <div className="col-md-4">
                           <button id="togglePresaleMint" name="togglePresaleMint" className="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
                         </div>
@@ -128,16 +128,16 @@ const AdminComponents = () => {
 
                       {/* <!-- Multiple Radios --> */}
                       <div className="form-group">
-                        <label className="col-md-4 control-label" for="radios">Set Revealed</label>
+                        <label className="col-md-4 control-label" htmlFor="radios">Set Revealed</label>
                         <div className="col-md-4">
                           <div className="radio">
-                            <label for="radios-0">
+                            <label htmlFor="radios-0">
                               <input type="radio" name="radios" id="radios-0" value="false" defaultChecked="checked"></input>
                               Hidden
                             </label>
                           </div>
                           <div className="radio">
-                            <label for="radios-1">
+                            <label htmlFor="radios-1">
                               <input type="radio" name="radios" id="radios-1" value="true"></input>
                               Revealed
                             </label>
@@ -150,7 +150,7 @@ const AdminComponents = () => {
 
                       {/* <!-- Text input--> */}
                       <div className="form-group">
-                        <label className="col-md-4 control-label" for="transferOwnership">Transfer Ownership</label>
+                        <label className="col-md-4 control-label" htmlFor="transferOwnership">Transfer Ownership</label>
                         <div className="col-md-4">
                           <input id="transferOwnership" name="transferOwnership" type="text" placeholder="newOwner (address)" className="form-control input-md" required="">
                           </input>
