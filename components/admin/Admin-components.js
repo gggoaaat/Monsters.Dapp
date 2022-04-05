@@ -104,59 +104,59 @@ const AdminComponents = () => {
         <Row className="">
         <Col lg="6" md="6" >
             <div style={{ backgroundColor: "#fff", marginTop: "150px" }}>
-                  <div class="form-horizontal" >
+                  <div className="form-horizontal" >
                     <fieldset>
 
                       {/* <!-- Form Name --> */}
                       <legend>Admin Contract Page</legend>
 
                       {/* <!-- Button --> */}
-                      <div class="form-group">
-                        <label class="col-md-4 control-label" for="togglePublicMint">Public Mint</label>
-                        <div class="col-md-4">
-                          <button id="togglePublicMint" name="togglePublicMint" class="btn btn-primary"  onClick={() => togglePublicMint()}>Toggle</button>
+                      <div className="form-group">
+                        <label className="col-md-4 control-label" for="togglePublicMint">Public Mint</label>
+                        <div className="col-md-4">
+                          <button id="togglePublicMint" name="togglePublicMint" className="btn btn-primary"  onClick={() => togglePublicMint()}>Toggle</button>
                         </div>
                       </div>
 
                       {/* <!-- Button --> */}
-                      <div class="form-group">
-                        <label class="col-md-4 control-label" for="togglePresaleMint">Presale Mint</label>
-                        <div class="col-md-4">
-                          <button id="togglePresaleMint" name="togglePresaleMint" class="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
+                      <div className="form-group">
+                        <label className="col-md-4 control-label" for="togglePresaleMint">Presale Mint</label>
+                        <div className="col-md-4">
+                          <button id="togglePresaleMint" name="togglePresaleMint" className="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
                         </div>
                       </div>
 
                       {/* <!-- Multiple Radios --> */}
-                      <div class="form-group">
-                        <label class="col-md-4 control-label" for="radios">Set Revealed</label>
-                        <div class="col-md-4">
-                          <div class="radio">
+                      <div className="form-group">
+                        <label className="col-md-4 control-label" for="radios">Set Revealed</label>
+                        <div className="col-md-4">
+                          <div className="radio">
                             <label for="radios-0">
                               <input type="radio" name="radios" id="radios-0" value="false" defaultChecked="checked"></input>
                               Hidden
                             </label>
                           </div>
-                          <div class="radio">
+                          <div className="radio">
                             <label for="radios-1">
                               <input type="radio" name="radios" id="radios-1" value="true"></input>
                               Revealed
                             </label>
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          <button id="submitRevealChange" name="submitRevealChange" class="btn btn-primary">Change Reveal</button>
+                        <div className="col-md-4">
+                          <button id="submitRevealChange" name="submitRevealChange" className="btn btn-primary">Change Reveal</button>
                         </div>
                       </div>
 
                       {/* <!-- Text input--> */}
-                      <div class="form-group">
-                        <label class="col-md-4 control-label" for="transferOwnership">Transfer Ownership</label>
-                        <div class="col-md-4">
-                          <input id="transferOwnership" name="transferOwnership" type="text" placeholder="newOwner (address)" class="form-control input-md" required="">
+                      <div className="form-group">
+                        <label className="col-md-4 control-label" for="transferOwnership">Transfer Ownership</label>
+                        <div className="col-md-4">
+                          <input id="transferOwnership" name="transferOwnership" type="text" placeholder="newOwner (address)" className="form-control input-md" required="">
                           </input>
                         </div>
-                        <div class="col-md-4">
-                          <button id="submitChangeOwner" name="submitChangeOwner" class="btn btn-primary">Change Owner</button>
+                        <div className="col-md-4">
+                          <button id="submitChangeOwner" name="submitChangeOwner" className="btn btn-primary">Change Owner</button>
                         </div>
                       </div>
 
