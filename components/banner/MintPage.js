@@ -170,7 +170,7 @@ const MintPage = () => {
             }
             <Col lg="6" md="6" >
               <div style={{ paddingTop: "120px", paddingBottom: "100px"  }}>
-                <Image src={bannerimg} alt="WTForks Couple in a tub" />
+                <Image src={bannerimg} alt="Monster Window" />
               </div>
             </Col>
           </Row>
