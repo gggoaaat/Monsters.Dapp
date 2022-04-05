@@ -316,6 +316,80 @@ export default function NFTWalletBridge(e) {
         return {};
     }
 
+    async function togglePublicMint() {
+
+        if (process.env.debug) {
+            console.log(Amount);
+        }
+
+        //const TotalTokens = 0.075 * Amount;
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+        setIsWaiting(true)
+        setErrorMessage("");
+
+        let txTransfer = await contract.methods
+            .togglePublicMint()
+            .send({ from: connectedWalletAddress })
+            .on('transactionHash', function (hash) {
+                //hashArray = [];
+
+                hashArray.push({ id: 1, txHash: hash, filteredTxHash: hash.substr(0, 10) + "..." + hash.substr(hash.length - 10) });
+                setTxs(hashArray);
+                sethashTx(GetHashes(txs));
+                //console.log(hash);
+            })
+            .then(function (result) {
+                setIsWaiting(false);
+                //alert('Transaction success');
+            }).catch(function (e) {
+                setIsWaiting(false)
+                setErrorMessage(e.message)
+                console.log(e)
+            });
+        
+        return {};
+    }
+
+    async function togglePresaleMint() {
+
+        if (process.env.debug) {
+            console.log(Amount);
+        }
+
+        //const TotalTokens = 0.075 * Amount;
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+        setIsWaiting(true)
+        setErrorMessage("");
+
+        // const estimation = await erc20.contract.methods.togglePresaleMint();
+
+        // console.log(estimation);
+
+        let txTransfer = await contract.methods
+            .togglePresaleMint()
+            .send({ from: connectedWalletAddress })
+            .on('transactionHash', function (hash) {
+                //hashArray = [];
+
+                hashArray.push({ id: 1, txHash: hash, filteredTxHash: hash.substr(0, 10) + "..." + hash.substr(hash.length - 10) });
+                setTxs(hashArray);
+                sethashTx(GetHashes(txs));
+                //console.log(hash);
+            })
+            .then(function (result) {
+                setIsWaiting(false);
+                //alert('Transaction success');
+            }).catch(function (e) {
+                setIsWaiting(false)
+                setErrorMessage(e.message)
+                console.log(e)
+            });
+        
+        return {};
+    }
+
     function GetHashes(props) {
 
         // setTxs(props);
@@ -372,6 +446,16 @@ export default function NFTWalletBridge(e) {
         sendMint: function (props) {
             const thisP = props;
             sendMint(props)
+            return false;
+        },
+        togglePublicMint : function (props) {
+            togglePublicMint(props)
+
+            return false;
+        },
+        togglePresaleMint : function (props) {
+            togglePresaleMint(props)
+
             return false;
         }
     };

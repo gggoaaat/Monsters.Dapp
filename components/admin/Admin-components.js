@@ -46,9 +46,19 @@ const AdminComponents = () => {
 
   let currentUseState = walletBridge1.getUseStates();
 
-  async function SendMint(props) {
+  async function togglePublicMint(props) {
 
-    const returnedhash = await walletBridge1.sendMint(props.mint)
+    const returnedhash = await walletBridge1.togglePublicMint()
+
+    //let retu = await loadup(returnedhash)
+    if (process.env.debug) {
+      console.log(returnedhash)
+    }
+  }
+
+  async function togglePresaleMint(props) {
+
+    const returnedhash = await walletBridge1.togglePresaleMint()
 
     //let retu = await loadup(returnedhash)
     if (process.env.debug) {
@@ -91,10 +101,9 @@ const AdminComponents = () => {
     <>
       <div className="static-slider-head banner2">
         <Container>
-          <Row className="">
-            {(!currentUseState.isConnected) ?
-              <Col lg="12" md="12" className="align-self-center">
-                <div style={{ backgroundColor: "#fff", marginTop: "150px" }}>
+        <Row className="">
+        <Col lg="6" md="6" >
+            <div style={{ backgroundColor: "#fff", marginTop: "150px" }}>
                   <div class="form-horizontal" >
                     <fieldset>
 
@@ -105,7 +114,7 @@ const AdminComponents = () => {
                       <div class="form-group">
                         <label class="col-md-4 control-label" for="togglePublicMint">Public Mint</label>
                         <div class="col-md-4">
-                          <button id="togglePublicMint" name="togglePublicMint" class="btn btn-primary">Toggle</button>
+                          <button id="togglePublicMint" name="togglePublicMint" class="btn btn-primary"  onClick={() => togglePublicMint()}>Toggle</button>
                         </div>
                       </div>
 
@@ -113,7 +122,7 @@ const AdminComponents = () => {
                       <div class="form-group">
                         <label class="col-md-4 control-label" for="togglePresaleMint">Presale Mint</label>
                         <div class="col-md-4">
-                          <button id="togglePresaleMint" name="togglePresaleMint" class="btn btn-primary">Toggle</button>
+                          <button id="togglePresaleMint" name="togglePresaleMint" class="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
                         </div>
                       </div>
 
@@ -154,15 +163,61 @@ const AdminComponents = () => {
                     </fieldset>
                   </div>
                 </div>
+            </Col>
+            {(!currentUseState.isConnected) ?
+              <Col lg="6" md="6" className="align-self-center">                
+                <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3>
+                <h3 className="title">
+                  A blockchain project built by Community.
+                </h3>
+                <h4 className="subtitle font-light">
+                  An original collection consisting of 3,333 unique Monsters living on the Ethereum blockchain
+                  <br />
+                </h4>
+                <a
+                  onClick={() => walletBridge1.showWeb3Modal()}
+                  className="btn btn-success m-r-20 btn-md m-t-30 " style={{ backgroundColor: "#C2C2C2" }}
+                >
+                  Connect Wallet
+                </a>
+                <Link href={process.env.mainWWW}>
+                  <a className="btn btn-md m-t-30  btn-outline-light " style={{ backgroundColor: "#760680" }}>
+                    Back Home
+                  </a>
+                </Link>
               </Col> :
-              <Col lg="12" md="12" className="align-self-center">
+              <Col lg="6" md="6" className="align-self-center">
+                <br />
+                <p className="connected">
+                  {process.env.mintType} Mint Cost : <strong>{newValue} ETH</strong>
+                  <br />
+                  Wallet address: <strong>{currentUseState.xmPower.filteredAddress}</strong>
+                  <br />
+                  Eth Balance : <strong>{currentUseState.xmPower.theBalance}</strong>
+                  <br />
+                  Contract : <strong>{process.env.contractAddress}</strong>
+                  <br />
+                </p>                               
+                
 
+                <a
+                  onClick={() => walletBridge1.disconnect()}
+                  className="btn btn-md m-t-30 btn-outline-light "
+                >
+                  Disconnect Wallet
+                </a>
+                <br />
+                <br />
+                <h4 className="subtitle font-light">
+                  NFT&apos;s minted {currentUseState.numMinted} of {process.env.maxMint}
+                </h4>
+                <br />
+                {currentUseState.hashHtml}
               </Col>
             }
-            <Col lg="12" md="12" >
-
-            </Col>
+          
           </Row>
+
         </Container>
       </div>
     </>

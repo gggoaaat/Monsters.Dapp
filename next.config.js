@@ -5,7 +5,7 @@ module.exports = {
   analyticsId: '7vsHWbYwcKpA3lFTng2Qe9iNzE7',
   env: {
     siteTitle: "The Monster Community Minting Dapp",
-    contractAddress: "0xeCb06Cd27B22FAE161804CDA1c56ac23B39650bd",
+    contractAddress: "0xfaC1579101886E8837b0abC08bb405BB5c1D4baE",
     infuraID: "045e9c65387a4200aa8559c347fa19a4",
     defaultGas: 125000,//75000,
     mintType : "Pre-Sale", //Pre-Sale Public
