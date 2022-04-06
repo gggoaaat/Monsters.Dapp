@@ -28,8 +28,10 @@ export default function NFTWalletBridge(e) {
     const [isWaiting, setIsWaiting] = useState(false);
     const [numMinted, setnumMinted] = useState(0);
     const [isRevealed, setIsRevealed] = useState(false);
+    const [whiteListPass, setWhiteListPass] = useState({});
     const [isPrivateMintIsOpen, setIsPrivateMintIsOpen] = useState(false);
     const [isPublicMintIsOpen, setIsPublicMintIsOpen] = useState(false);
+    const [walletBalance, setWalletBalance] = useState(0);    
     const [txs, setTxs] = useState(hashArray);
     const [loaded, setLoaded] = useState(true);
     const [hashTx, sethashTx] = useState("");
@@ -73,6 +75,7 @@ export default function NFTWalletBridge(e) {
                 await getRevealed();
                 await getPublicMintStatus();
                 await getPrivateMintStatus();
+                await getBalanceOf({ wallet : connectedWalletAddress});
 
                 balance2 = web3.utils.fromWei(balance2, "ether")
                 const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
@@ -108,6 +111,7 @@ export default function NFTWalletBridge(e) {
             }
         }
 
+        setWhiteListPass(whitelist[thisAddress]);
         setIsWhiteListed(displayMint);
 
         return displayMint;
@@ -191,29 +195,9 @@ export default function NFTWalletBridge(e) {
         document.getElementById("userWalletAddress").appendChild(p);
     }
 
-    // function ShowWalletConnect(props) {
-    //     const isLoggedIn = checkIfLoggedIN(props);
-    //     if (isLoggedIn) {
-    //         return (
-    //             <Button variant="outlined" size="Large" sx={{
-    //                 border: '1px solid rgba(46, 125, 50, 0.5)',
-    //                 color: 'success.main',
-    //             }} onClick={() => disconnect()}>Disconnect Wallet</Button>
-    //         );
-    //     }
-    //     return (
-    //         <div className="showPortisBtn">
-    //             <Button variant="outlined" size="Large" sx={{
-    //                 border: '1px solid rgba(46, 125, 50, 0.5)',
-    //                 color: 'success.main',
-    //             }} onClick={() => showWeb3Modal()}>Connect to Wallet</Button>
-    //         </div>);
-    // }
-
     function checkIfLoggedIN(props) {
         return props == undefined ? false : true && props.isConnected == undefined ? false : props.isConnected;
     }
-
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -469,6 +453,16 @@ export default function NFTWalletBridge(e) {
         return thisResult;
     }
 
+    async function getBalanceOf(props) {
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+
+        let thisResult = await contract.methods.balanceOf(props.wallet).call();
+        setWalletBalance(thisResult);
+
+        return thisResult;
+    }
+
     function GetHashes(props) {
 
         // setTxs(props);
@@ -525,6 +519,10 @@ export default function NFTWalletBridge(e) {
                 setIsPublicMintIsOpen,
                 isPrivateMintIsOpen,
                 setIsPrivateMintIsOpen,
+                walletBalance,
+                setWalletBalance,
+                whiteListPass,
+                setWhiteListPass,
                 errorMessage
             }
         },

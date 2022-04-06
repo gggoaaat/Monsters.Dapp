@@ -95,7 +95,7 @@ const MintPage = () => {
           <Row className="">
             {(!currentUseState.isConnected) ?
               <Col lg="6" md="6" className="align-self-center">                
-                <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3>
+                {(currentUseState.network == "rinkeby") ? <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3> : "" } 
                 <h3 className="title">
                   A blockchain project built by Community.
                 </h3>
@@ -129,16 +129,13 @@ const MintPage = () => {
                 </p>
                 {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
                   <><label className="connected">Number to mint (1-{process.env.maxMintCount}):</label>
-
                     <div className="">
                       <div className="input-group">
                         <div className="input-group-prepend">
                           <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
                         </div>
                         <div className="input-group-prepend">
-                          <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="1"
-                            max={process.env.maxMintCount}
-                            onChange={handleChange} />
+                          <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="1" max={process.env.maxMintCount} onChange={handleChange} />
                         </div>
                         <div className="input-group-prepend">
                           <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
@@ -152,7 +149,6 @@ const MintPage = () => {
                     </Link>
                   </>
                   : <h1>You are not on the whitelist</h1>}
-
                 <a
                   onClick={() => walletBridge1.disconnect()}
                   className="btn btn-md m-t-30 btn-outline-light "
