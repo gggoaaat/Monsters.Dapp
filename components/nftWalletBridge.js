@@ -64,31 +64,36 @@ export default function NFTWalletBridge(e) {
                 connectedWalletAddress = ethers.utils.getAddress(accounts[0])
 
                 contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas });
-                let totalShares = await contract.methods.totalSupply.call()
+               
 
-                let resultTS = await totalShares.call();
-                //console.log(`totalShares: ${resultTS}`)
-                setnumMinted(resultTS)
-
-                let balance2 = await GetBalance();
-
-                await getRevealed();
-                await getPublicMintStatus();
-                await getPrivateMintStatus();
-                await getBalanceOf({ wallet : connectedWalletAddress});
-
-                balance2 = web3.utils.fromWei(balance2, "ether")
-                const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
-
-                let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
-
-                setTokenBalance({
-                    trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered,
-                    isWhiteListed: isThisAddressOnWhitelist
-                });
+                await getBlockChainData();
             }
         }
         catch (e) { }
+    }
+
+    async function getBlockChainData() {
+        let totalShares = await contract.methods.totalSupply.call();
+        let resultTS = await totalShares.call();
+        //console.log(`totalShares: ${resultTS}`)
+        setnumMinted(resultTS);
+
+        let balance2 = await GetBalance();
+
+        await getRevealed();
+        await getPublicMintStatus();
+        await getPrivateMintStatus();
+        await getBalanceOf({ wallet: connectedWalletAddress });
+
+        balance2 = web3.utils.fromWei(balance2, "ether");
+        const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
+
+        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress);
+
+        setTokenBalance({
+            trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered,
+            isWhiteListed: isThisAddressOnWhitelist
+        });
     }
 
     async function GetBalance() {
@@ -256,10 +261,12 @@ export default function NFTWalletBridge(e) {
                 .then(function (result) {
                     setIsWaiting(false);
                     //alert('Transaction success');
+                    getBlockChainData();
                 }).catch(function (e) {
-                    setIsWaiting(false)
-                    setErrorMessage(e.message)
-                    console.log(e)
+                    setIsWaiting(false);
+                    setErrorMessage(e.message);
+                    console.log(e);
+                    getBlockChainData()
                 });
         }
 
@@ -281,11 +288,13 @@ export default function NFTWalletBridge(e) {
                 })
                 .then(function (result) {
                     setIsWaiting(false);
+                    getBlockChainData();
                     //alert('Transaction success');
                 }).catch(function (e) {
-                    setIsWaiting(false)
-                    setErrorMessage(e.message)
-                    console.log(e)
+                    setIsWaiting(false);
+                    setErrorMessage(e.message);
+                    console.log(e);
+                    getBlockChainData();
                 });
         }
 
