@@ -3,7 +3,7 @@ import React, { useReducer, useState, useEffect } from 'react';
 import Link from "next/link";
 import { Container, Row, Col } from "reactstrap";
 import Image from "next/image";
-import bannerimg from "../../assets/images/landingpage/monster.gif" 
+import bannerimg from "../../assets/images/landingpage/monster.gif"
 import NFTWalletBridge from '../../components/nftWalletBridge.js'
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Whitelist from "../../components/Whitelist";
@@ -52,7 +52,7 @@ export default function Claim() {
   const [formInput, updateFormInput] = useState({
     price: "",
     amount: "1",
-  });  
+  });
 
   let displayData = true ? walletBridge1.getUseStates().hash : "Loading!" //(<ul>{resultData}</ul>)
 
@@ -76,7 +76,7 @@ export default function Claim() {
   }
 
   let handleChange = (e) => {
-  
+
     if (mintNum > 1 && mintNum <= (+process.env.maxMint - currentUseState.walletBalance)) {
       setNum(e.target.value);
     }
@@ -136,7 +136,7 @@ export default function Claim() {
                     <br />
                   </p>
                   {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
-                    <><label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>                      
+                    <><label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
                       <div className="">
                         <div className="input-group">
                           <div className="input-group-prepend">
