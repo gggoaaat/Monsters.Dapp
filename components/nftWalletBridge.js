@@ -24,21 +24,19 @@ export default function NFTWalletBridge(e) {
     const providerOptions = e.bridgeParams.providerOptions;
 
     const [isConnected, setConnected] = useState(false);
-    const [tokenBalance, setTokenBalance] = useState({ trueBalance: 'N/A', theBalance: 'N/A', connectedWalletAddress: 'N/A', filteredAddress: 'N/A', isWhiteListed : false });
+    const [tokenBalance, setTokenBalance] = useState({ trueBalance: 'N/A', theBalance: 'N/A', connectedWalletAddress: 'N/A', filteredAddress: 'N/A', isWhiteListed: false });
     const [isWaiting, setIsWaiting] = useState(false);
     const [numMinted, setnumMinted] = useState(0);
+    const [isRevealed, setIsRevealed] = useState(false);
+    const [isPrivateMintIsOpen, setIsPrivateMintIsOpen] = useState(false);
+    const [isPublicMintIsOpen, setIsPublicMintIsOpen] = useState(false);
     const [txs, setTxs] = useState(hashArray);
     const [loaded, setLoaded] = useState(true);
     const [hashTx, sethashTx] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [isWhiteListed, setIsWhiteListed] = useState(false);
 
-    //const mintType = process.env.mintType 
-
-    //const initValue = { setxmPower, setConnected };
-
-    const contractABI = ContractABI()
-
+    const contractABI = ContractABI();
 
     async function showWeb3Modal() {
         provider = null;
@@ -70,25 +68,28 @@ export default function NFTWalletBridge(e) {
                 //console.log(`totalShares: ${resultTS}`)
                 setnumMinted(resultTS)
 
+                let balance2 = await GetBalance();
 
-                let balance2 = await web3.eth.getBalance(accounts[0]);
+                await getRevealed();
+                await getPublicMintStatus();
+                await getPrivateMintStatus();
 
                 balance2 = web3.utils.fromWei(balance2, "ether")
                 const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
-                
+
                 let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
-                // let thisReturn = false
-                // if ((mintType == "Pre-Sale" && whitelist.indexOf(connectedWalletAddress) > -1) || mintType == "Public" )
-                // {
-                //     thisReturn = true
-                // } 
-                
-                setTokenBalance({ trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered , 
-                    isWhiteListed : isThisAddressOnWhitelist
+
+                setTokenBalance({
+                    trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered,
+                    isWhiteListed: isThisAddressOnWhitelist
                 });
             }
         }
         catch (e) { }
+    }
+
+    async function GetBalance() {
+        return await web3.eth.getBalance(accounts[0]);
     }
 
     async function CheckIfOnWhitelist(saleType, thisAddress) {
@@ -101,7 +102,7 @@ export default function NFTWalletBridge(e) {
         if (saleType == "Public") {
             displayMint = true;
         }
-        else {           
+        else {
             if (whitelist[thisAddress] != null && whitelist[thisAddress] != undefined) {
                 displayMint = true;
             }
@@ -168,7 +169,7 @@ export default function NFTWalletBridge(e) {
             console.log("disconnect" + " - " + error);
             provider = null;
             setConnected(false);
-            setTokenBalance({ theBalance: 'N/A', connectedWalletAddress: 'N/A', isWhiteListed : false })
+            setTokenBalance({ theBalance: 'N/A', connectedWalletAddress: 'N/A', isWhiteListed: false })
             disconnect()
         });
 
@@ -177,7 +178,7 @@ export default function NFTWalletBridge(e) {
             console.log("disconnect" + " - " + error);
             provider = null;
             setConnected(false);
-            setTokenBalance({ theBalance: 'N/A', connectedWalletAddress: 'N/A', isWhiteListed : false })
+            setTokenBalance({ theBalance: 'N/A', connectedWalletAddress: 'N/A', isWhiteListed: false })
             disconnect()
         });
         return ethersProvider;//new Web3(provider);
@@ -276,12 +277,12 @@ export default function NFTWalletBridge(e) {
                     setErrorMessage(e.message)
                     console.log(e)
                 });
-        }        
+        }
 
         let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
         if (process.env.mintType == "Pre-Sale" && isThisAddressOnWhitelist) {
-            
-            let thisWL = Whitelist();            
+
+            let thisWL = Whitelist();
 
             let txTransfer1 = await contract.methods
                 .afterHoursMonsterMint(Amount, thisWL[connectedWalletAddress].q, thisWL[connectedWalletAddress].monsterPass)
@@ -347,7 +348,7 @@ export default function NFTWalletBridge(e) {
                 setErrorMessage(e.message)
                 console.log(e)
             });
-        
+
         return {};
     }
 
@@ -366,28 +367,106 @@ export default function NFTWalletBridge(e) {
         // const estimation = await erc20.contract.methods.togglePresaleMint();
 
         // console.log(estimation);
+        try {
+            let txTransfer = await contract.methods
+                .togglePresaleMint()
+                .send({ from: connectedWalletAddress })
+                .on('transactionHash', function (hash) {
+                    //hashArray = [];
 
-        let txTransfer = await contract.methods
-            .togglePresaleMint()
-            .send({ from: connectedWalletAddress })
-            .on('transactionHash', function (hash) {
-                //hashArray = [];
+                    hashArray.push({ id: 1, txHash: hash, filteredTxHash: hash.substr(0, 10) + "..." + hash.substr(hash.length - 10) });
+                    setTxs(hashArray);
+                    sethashTx(GetHashes(txs));
+                    //console.log(hash);
+                })
+                .then(function (result) {
+                    setIsWaiting(false);
+                    alert('Transaction success');
+                }).catch(function (e) {
+                    alert('Transaction Failed');
+                    setIsWaiting(false)
+                    setErrorMessage(e.message)                  
+                    console.log(e)
+                });
+        } catch (error) {
 
-                hashArray.push({ id: 1, txHash: hash, filteredTxHash: hash.substr(0, 10) + "..." + hash.substr(hash.length - 10) });
-                setTxs(hashArray);
-                sethashTx(GetHashes(txs));
-                //console.log(hash);
-            })
-            .then(function (result) {
-                setIsWaiting(false);
-                //alert('Transaction success');
-            }).catch(function (e) {
-                setIsWaiting(false)
-                setErrorMessage(e.message)
-                console.log(e)
-            });
-        
+        }
+
+
         return {};
+    }
+
+    async function setRevealed(props) {
+
+        if (process.env.debug) {
+            console.log(Amount);
+        }
+
+        //const TotalTokens = 0.075 * Amount;
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+        setIsWaiting(true)
+        setErrorMessage("");
+
+        // const estimation = await erc20.contract.methods.togglePresaleMint();
+
+        // console.log(estimation);
+        try {
+            let txTransfer = await contract.methods
+                .setRevealed(props.revealed)
+                .send({ from: connectedWalletAddress })
+                .on('transactionHash', function (hash) {
+                    //hashArray = [];
+
+                    hashArray.push({ id: 1, txHash: hash, filteredTxHash: hash.substr(0, 10) + "..." + hash.substr(hash.length - 10) });
+                    setTxs(hashArray);
+                    sethashTx(GetHashes(txs));
+                    //console.log(hash);
+                })
+                .then(function (result) {
+                    setIsWaiting(false);
+                    alert('Transaction success');
+                }).catch(function (e) {
+                    alert('Transaction Failed');
+                    setIsWaiting(false)
+                    setErrorMessage(e.message)
+                    // console.log(e)
+                });
+        } catch (error) {
+
+        }
+
+        return {};
+    }
+
+    async function getRevealed() {
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+
+        let thisResult = await contract.methods.revealed().call();
+        setIsRevealed(thisResult);
+
+        return thisResult;
+    }
+
+    async function getPublicMintStatus() {
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+
+        let thisResult = await contract.methods.publicMintIsOpen().call();
+        setIsPublicMintIsOpen(thisResult);
+
+        return thisResult;
+    }
+
+    async function getPrivateMintStatus() {
+
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: 50000 });
+
+        let thisResult = await contract.methods.privateMintIsOpen().call();
+        setIsPrivateMintIsOpen(thisResult);
+
+        return thisResult;
     }
 
     function GetHashes(props) {
@@ -440,6 +519,12 @@ export default function NFTWalletBridge(e) {
                 xmPower: tokenBalance,
                 setxmPower: setTokenBalance,
                 numMinted: numMinted,
+                isRevealed,
+                setIsRevealed,
+                isPublicMintIsOpen,
+                setIsPublicMintIsOpen,
+                isPrivateMintIsOpen,
+                setIsPrivateMintIsOpen,
                 errorMessage
             }
         },
@@ -448,15 +533,21 @@ export default function NFTWalletBridge(e) {
             sendMint(props)
             return false;
         },
-        togglePublicMint : function (props) {
+        togglePublicMint: function (props) {
             togglePublicMint(props)
 
             return false;
         },
-        togglePresaleMint : function (props) {
+        togglePresaleMint: function (props) {
             togglePresaleMint(props)
 
             return false;
+        },
+        getRevealed: function (props) {
+            return getRevealed();
+        },
+        setRevealed: function (props) {
+            return setRevealed(props);
         }
     };
 };

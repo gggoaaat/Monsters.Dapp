@@ -66,6 +66,12 @@ const AdminComponents = () => {
     }
   }
 
+  async function getRevealed(props) {
+
+    const returnRevealed = await walletBridge1.getRevealed()
+
+  }
+
   const [formInput, updateFormInput] = useState({
     price: "",
     amount: "1",
@@ -73,99 +79,80 @@ const AdminComponents = () => {
 
   let displayData = true ? walletBridge1.getUseStates().hash : "Loading!" //(<ul>{resultData}</ul>)
 
-  let [mintNum, setNum] = useState(1);
-  let incNum = () => {
-    if (mintNum < +process.env.maxMintCount) {
-      console.log(mintNum)
-      console.log(process.env.maxMint)
-      console.log(mintNum <= +process.env.maxMint)
-      setNum(Number(mintNum) + 1);
-    }
-  };
-
-  let decNum = () => {
-    if (mintNum > 1) {
-      setNum(mintNum - 1);
-    }
-  }
-
-  let handleChange = (e) => {
-    if (mintNum > 1 && mintNum <= +process.env.maxMint) {
-      setNum(e.target.value);
-    }
-  }
-
   let newValue = process.env.mintType == "Public" ? process.env.ethValue : process.env.ethWLValue;
+
+  let [revealVal, setRevealVal] = useState("false");
+  function handleOnChange(e) {
+    setRevealVal(e.target.value);
+  }
+
+  async function submitRevealValue(props) {
+    await walletBridge1.setRevealed({ revealed: revealVal.toString() });
+  }
 
   return (
     <>
       <div className="static-slider-head banner2">
         <Container>
-        <Row className="">
-        <Col lg="6" md="6" >
-            <div style={{ backgroundColor: "#fff", marginTop: "150px" }}>
-                  <div className="form-horizontal" >
-                    <fieldset>
+          <Row className="">
+            <Col lg="6" md="6" >
+            {(currentUseState.isConnected) ?
+              <div style={{ backgroundColor: "#fff", marginTop: "150px" }}>
+                <div className="form-horizontal" >
+                  <fieldset>
 
-                      {/* <!-- Form Name --> */}
-                      <legend>Admin Contract Page</legend>
+                    {/* <!-- Form Name --> */}
+                    <legend>Admin Contract Page</legend>
 
-                      {/* <!-- Button --> */}
-                      <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="togglePublicMint">Public Mint</label>
-                        <div className="col-md-4">
-                          <button id="togglePublicMint" name="togglePublicMint" className="btn btn-primary"  onClick={() => togglePublicMint()}>Toggle</button>
+                    {/* <!-- Button --> */}
+                    <div className="form-group">
+                      <label className="col-md-4 control-label" htmlFor="togglePublicMint">Public Mint :  {currentUseState.isPublicMintIsOpen.toString()}</label>
+                      <div className="col-md-4">
+                        <button id="togglePublicMint" name="togglePublicMint" className="btn btn-primary" onClick={() => togglePublicMint()}>Toggle</button>
+                      </div>
+                    </div>
+
+                    {/* <!-- Button --> */}
+                    <div className="form-group">
+                      <label className="col-md-4 control-label" htmlFor="togglePresaleMint">Presale Mint : {currentUseState.isPrivateMintIsOpen.toString()}</label>
+                      <div className="col-md-4">
+                        <button id="togglePresaleMint" name="togglePresaleMint" className="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
+                      </div>
+                    </div>
+
+                    {/* <!-- Multiple Radios --> */}
+                    <div className="form-group">
+                      <label className="col-md-4 control-label" htmlFor="radios">Set Revealed</label>
+                      <div className="col-md-4">
+                        <div className="radio">
+                          <label htmlFor="radios-0">
+                            {(currentUseState.isRevealed) ?
+                              <input type="radio" name="radios" id="radios-0" value="false" key="1" onChange={(e) => handleOnChange(e)} onClick={(e) => handleOnChange(e)}></input>
+                              : <input type="radio" name="radios" id="radios-0" value="false" key="1" defaultChecked="checked" onChange={(e) => handleOnChange(e)} onClick={(e) => handleOnChange(e)}></input>}
+                            Hidden
+                          </label>
+                        </div>
+                        <div className="radio">
+                          <label htmlFor="radios-1">
+                            {(currentUseState.isRevealed) ?
+                              <input type="radio" name="radios" id="radios-1" value="true" key="2" defaultChecked="checked" onChange={(e) => handleOnChange(e)} onClick={(e) => handleOnChange(e)}></input>
+                              : <input type="radio" name="radios" id="radios-1" value="true" key="2" onChange={(e) => handleOnChange(e)} onClick={(e) => handleOnChange(e)}></input>}
+                            Revealed
+                          </label>
                         </div>
                       </div>
-
-                      {/* <!-- Button --> */}
-                      <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="togglePresaleMint">Presale Mint</label>
-                        <div className="col-md-4">
-                          <button id="togglePresaleMint" name="togglePresaleMint" className="btn btn-primary" onClick={() => togglePresaleMint()}>Toggle</button>
-                        </div>
+                      <div className="col-md-4">
+                        <button id="submitRevealChange" name="submitRevealChange" className="btn btn-primary" onClick={() => submitRevealValue()}>Set Reveal</button>
                       </div>
-
-                      {/* <!-- Multiple Radios --> */}
-                      <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="radios">Set Revealed</label>
-                        <div className="col-md-4">
-                          <div className="radio">
-                            <label htmlFor="radios-0">
-                              <input type="radio" name="radios" id="radios-0" value="false" defaultChecked="checked"></input>
-                              Hidden
-                            </label>
-                          </div>
-                          <div className="radio">
-                            <label htmlFor="radios-1">
-                              <input type="radio" name="radios" id="radios-1" value="true"></input>
-                              Revealed
-                            </label>
-                          </div>
-                        </div>
-                        <div className="col-md-4">
-                          <button id="submitRevealChange" name="submitRevealChange" className="btn btn-primary">Change Reveal</button>
-                        </div>
-                      </div>
-
-                      {/* <!-- Text input--> */}
-                      <div className="form-group">
-                        <label className="col-md-4 control-label" htmlFor="transferOwnership">Transfer Ownership</label>
-                        <div className="col-md-4">
-                          <input id="transferOwnership" name="transferOwnership" type="text" placeholder="newOwner (address)" className="form-control input-md" required="">
-                          </input>
-                        </div>
-                        <div className="col-md-4">
-                          <button id="submitChangeOwner" name="submitChangeOwner" className="btn btn-primary">Change Owner</button>
-                        </div>
-                      </div>
-
-                    </fieldset>
-                  </div>
+                    </div>
+                  </fieldset>
                 </div>
+              </div>
+              : <div></div>
+                            }
             </Col>
             {(!currentUseState.isConnected) ?
-              <Col lg="6" md="6" className="align-self-center">                
+              <Col lg="12" md="12" className="align-self-center">
                 <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3>
                 <h3 className="title">
                   A blockchain project built by Community.
@@ -188,6 +175,7 @@ const AdminComponents = () => {
               </Col> :
               <Col lg="6" md="6" className="align-self-center">
                 <br />
+                {/* <p>Test{currentUseState.isWaiting.toString()}</p> */}
                 <p className="connected">
                   {process.env.mintType} Mint Cost : <strong>{newValue} ETH</strong>
                   <br />
@@ -197,9 +185,7 @@ const AdminComponents = () => {
                   <br />
                   Contract : <strong>{process.env.contractAddress}</strong>
                   <br />
-                </p>                               
-                
-
+                </p>
                 <a
                   onClick={() => walletBridge1.disconnect()}
                   className="btn btn-md m-t-30 btn-outline-light "
@@ -215,7 +201,6 @@ const AdminComponents = () => {
                 {currentUseState.hashHtml}
               </Col>
             }
-          
           </Row>
 
         </Container>
