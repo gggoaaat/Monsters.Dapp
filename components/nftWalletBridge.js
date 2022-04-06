@@ -31,7 +31,7 @@ export default function NFTWalletBridge(e) {
     const [whiteListPass, setWhiteListPass] = useState({});
     const [isPrivateMintIsOpen, setIsPrivateMintIsOpen] = useState(false);
     const [isPublicMintIsOpen, setIsPublicMintIsOpen] = useState(false);
-    const [walletBalance, setWalletBalance] = useState(0);    
+    const [walletBalance, setWalletBalance] = useState(0);
     const [txs, setTxs] = useState(hashArray);
     const [loaded, setLoaded] = useState(true);
     const [hashTx, sethashTx] = useState("");
@@ -64,7 +64,7 @@ export default function NFTWalletBridge(e) {
                 connectedWalletAddress = ethers.utils.getAddress(accounts[0])
 
                 contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas });
-               
+
 
                 await getBlockChainData(e);
             }
@@ -208,7 +208,7 @@ export default function NFTWalletBridge(e) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    async function sendMint(props) {        
+    async function sendMint(props) {
 
         if (process.env.debug) {
             console.log(props);
@@ -374,7 +374,7 @@ export default function NFTWalletBridge(e) {
                 }).catch(function (e) {
                     alert('Transaction Failed');
                     setIsWaiting(false)
-                    setErrorMessage(e.message)                  
+                    setErrorMessage(e.message)
                     console.log(e)
                 });
         } catch (error) {
@@ -482,7 +482,9 @@ export default function NFTWalletBridge(e) {
 
         return (
             <>
-                <table><thead><tr><th>Mint Transaction Link</th></tr></thead><tbody>{loaded ? resultData : <tr><td colSpan="3">Loading</td></tr>}</tbody></table>
+                <div style={{ backgroundColor: "RGB(255,255,255,0.7)", padding: "5px" }}>
+                    <table><thead><tr><th>Mint Transaction Link</th></tr></thead><tbody>{loaded ? resultData : <tr><td colSpan="3">Loading</td></tr>}</tbody></table>
+                </div>
             </>
         )
     }
