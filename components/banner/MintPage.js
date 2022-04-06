@@ -49,7 +49,7 @@ const MintPage = () => {
 
   async function SendMint(props) {
 
-    const returnedhash = await walletBridge1.sendMint(props.mint)
+    const returnedhash = await walletBridge1.sendMint(props)
 
     //let retu = await loadup(returnedhash)
     if (process.env.debug) {

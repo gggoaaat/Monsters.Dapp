@@ -208,10 +208,10 @@ export default function NFTWalletBridge(e) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    async function sendMint(Amount) {
+    async function sendMint(props) {
 
         if (process.env.debug) {
-            console.log(Amount);
+            console.log(props);
         }
 
         //const TotalTokens = 0.075 * Amount;
@@ -224,7 +224,7 @@ export default function NFTWalletBridge(e) {
         else {
             ethValue = +process.env.ethWLValue;
         }
-        const TotalTokens = Math.round((ethValue * Amount) * 10000) / 10000
+        const TotalTokens = Math.round((ethValue * props.mint) * 10000) / 10000
         //const TotalTokens = (+process.env.ethValue).toFixed(4) * Amount;
 
         let currentGasPrice = await web3.eth.getGasPrice()
@@ -241,14 +241,14 @@ export default function NFTWalletBridge(e) {
 
         var tokens = web3.utils.toWei(TotalTokens.toString(), 'ether')
         var bntokens = web3.utils.toBN(tokens)
-        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas * Amount });
+        contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas * props.mint });
         setIsWaiting(true)
         setErrorMessage("");
 
 
         if (process.env.mintType == "Public") {
             let txTransfer = await contract.methods
-                .openMonsterMint(Amount)
+                .openMonsterMint(props.mint)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];
@@ -266,7 +266,7 @@ export default function NFTWalletBridge(e) {
                     setIsWaiting(false);
                     setErrorMessage(e.message);
                     console.log(e);
-                    getBlockChainData()
+                    getBlockChainData();
                 });
         }
 
@@ -276,7 +276,7 @@ export default function NFTWalletBridge(e) {
             let thisWL = Whitelist();
 
             let txTransfer1 = await contract.methods
-                .afterHoursMonsterMint(Amount, thisWL[connectedWalletAddress].q, thisWL[connectedWalletAddress].monsterPass)
+                .afterHoursMonsterMint(props.mint, thisWL[connectedWalletAddress].q, thisWL[connectedWalletAddress].monsterPass)
                 .send({ from: connectedWalletAddress, value: bntokens })
                 .on('transactionHash', function (hash) {
                     //hashArray = [];

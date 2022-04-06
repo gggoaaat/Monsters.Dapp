@@ -41,7 +41,7 @@ export default function Claim() {
 
   async function SendMint(props) {
     //console.log(props.mint.toString());
-    const returnedhash = await walletBridge1.sendMint(props.mint.toString())
+    const returnedhash = await walletBridge1.sendMint(props)
 
     //let retu = await loadup(returnedhash)
     if (process.env.debug) {
