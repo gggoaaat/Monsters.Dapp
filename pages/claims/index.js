@@ -34,7 +34,7 @@ export default function Claim() {
     }
   };
 
-  let dappParams = { bridgeParams: bridgeParams }
+  let dappParams = { bridgeParams: bridgeParams, mintType : "Pre-Sale" }
   let walletBridge1 = NFTWalletBridge(dappParams);
 
   let currentUseState = walletBridge1.getUseStates();
@@ -57,7 +57,7 @@ export default function Claim() {
 
   let displayData = true ? walletBridge1.getUseStates().hash : "Loading!" //(<ul>{resultData}</ul>)
 
-  let [mintNum, setNum] = useState(1);
+  let [mintNum, setNum] = useState(0);
   let incNum = () => {
 
     console.log(currentUseState.whiteListPass)
@@ -159,7 +159,6 @@ export default function Claim() {
                               Mint
                             </a>
                           </Link>
-
                         </> :
                         <>
                           <hr />

@@ -66,13 +66,13 @@ export default function NFTWalletBridge(e) {
                 contract = new web3.eth.Contract(contractABI, tokenAddress, { from: connectedWalletAddress, gas: process.env.defaultGas });
                
 
-                await getBlockChainData();
+                await getBlockChainData(e);
             }
         }
         catch (e) { }
     }
 
-    async function getBlockChainData() {
+    async function getBlockChainData(props) {
         let totalShares = await contract.methods.totalSupply.call();
         let resultTS = await totalShares.call();
         //console.log(`totalShares: ${resultTS}`)
@@ -88,7 +88,7 @@ export default function NFTWalletBridge(e) {
         balance2 = web3.utils.fromWei(balance2, "ether");
         const filtered = connectedWalletAddress.substr(0, 6) + "..." + connectedWalletAddress.substr(connectedWalletAddress.length - 6);
 
-        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress);
+        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(props.mintType, connectedWalletAddress);
 
         setTokenBalance({
             trueBalance: balance2, theBalance: balance2, connectedWalletAddress: connectedWalletAddress, filteredAddress: filtered,
@@ -208,24 +208,21 @@ export default function NFTWalletBridge(e) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    async function sendMint(props) {
+    async function sendMint(props) {        
 
         if (process.env.debug) {
             console.log(props);
         }
 
-        //const TotalTokens = 0.075 * Amount;
-
         let ethValue = 0;
 
-        if (process.env.mintType == "Public") {
+        if (props.mintType == "Public") {
             ethValue = +process.env.ethValue;
         }
         else {
             ethValue = +process.env.ethWLValue;
         }
         const TotalTokens = Math.round((ethValue * props.mint) * 10000) / 10000
-        //const TotalTokens = (+process.env.ethValue).toFixed(4) * Amount;
 
         let currentGasPrice = await web3.eth.getGasPrice()
 
@@ -246,7 +243,7 @@ export default function NFTWalletBridge(e) {
         setErrorMessage("");
 
 
-        if (process.env.mintType == "Public") {
+        if (props.mintType == "Public") {
             let txTransfer = await contract.methods
                 .openMonsterMint(props.mint)
                 .send({ from: connectedWalletAddress, value: bntokens })
@@ -270,8 +267,8 @@ export default function NFTWalletBridge(e) {
                 });
         }
 
-        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(process.env.mintType, connectedWalletAddress)
-        if (process.env.mintType == "Pre-Sale" && isThisAddressOnWhitelist) {
+        let isThisAddressOnWhitelist = await CheckIfOnWhitelist(props.mintType, connectedWalletAddress)
+        if (props.mintType == "Pre-Sale" && isThisAddressOnWhitelist) {
 
             let thisWL = Whitelist();
 
