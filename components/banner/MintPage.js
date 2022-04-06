@@ -168,7 +168,7 @@ const MintPage = () => {
                       {currentUseState.hashHtml}
                     </>
                     :
-                    <h1 className="subtitle font-light">Public Mint is currently closed!</h1>
+                    <h1 className="subtitle font-light">Public mint is currently closed!</h1>
                   }
                 </>
               </Col>

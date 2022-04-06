@@ -184,7 +184,7 @@ export default function Claim() {
                       {currentUseState.hashHtml}
                     </>
                     :
-                    <h1 className="subtitle font-light">CLaim Mint is currently closed!</h1>
+                    <h1 className="subtitle font-light">Claim mint is currently closed!</h1>
                   }
                 </Col>
               }
