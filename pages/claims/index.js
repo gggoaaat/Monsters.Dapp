@@ -40,8 +40,8 @@ export default function Claim() {
   let currentUseState = walletBridge1.getUseStates();
 
   async function SendMint(props) {
-
-    const returnedhash = await walletBridge1.sendMint(props.mint)
+    //console.log(props.mint.toString());
+    const returnedhash = await walletBridge1.sendMint(props.mint.toString())
 
     //let retu = await loadup(returnedhash)
     if (process.env.debug) {
