@@ -242,7 +242,6 @@ export default function NFTWalletBridge(e) {
         setIsWaiting(true)
         setErrorMessage("");
 
-
         if (props.mintType == "Public") {
             let txTransfer = await contract.methods
                 .openMonsterMint(props.mint)

@@ -34,7 +34,7 @@ export default function Claim() {
     }
   };
 
-  let dappParams = { bridgeParams: bridgeParams, mintType : "Pre-Sale" }
+  let dappParams = { bridgeParams: bridgeParams, mintType: "Pre-Sale" }
   let walletBridge1 = NFTWalletBridge(dappParams);
 
   let currentUseState = walletBridge1.getUseStates();
@@ -126,59 +126,66 @@ export default function Claim() {
                 </Col> :
                 <Col lg="6" md="6" className="align-self-center">
                   <br />
-                  <p className="connected" style={{ backgroundColor : "RGB(0,0,0,0.5)", padding: "5px"}}>
-                    {process.env.mintType} Mint Cost : <strong>{newValue} ETH</strong>
-                    <br />
-                    Wallet address: <strong>{currentUseState.xmPower.filteredAddress}</strong>
-                    <br />
-                    Eth Balance : <strong>{currentUseState.xmPower.theBalance}</strong>
-                    <br />
-                    Contract : <strong>{process.env.contractAddress}</strong>
-                    <br />
-                  </p>
-                  {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
+                  {(currentUseState.isPrivateMintIsOpen) ?
                     <>
-                      {(currentUseState.isWaiting == false) ?
+                      <p className="connected" style={{ backgroundColor: "RGB(0,0,0,0.5)", padding: "5px" }}>
+                        {process.env.mintType} Mint Cost : <strong>{newValue} ETH</strong>
+                        <br />
+                        Wallet address: <strong>{currentUseState.xmPower.filteredAddress}</strong>
+                        <br />
+                        Eth Balance : <strong>{currentUseState.xmPower.theBalance}</strong>
+                        <br />
+                        Contract : <strong>{process.env.contractAddress}</strong>
+                        <br />
+                      </p>
+                      {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
                         <>
-                          <label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
-                          <div className="">
-                            <div className="input-group">
-                              <div className="input-group-prepend">
-                                <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
+                          {(currentUseState.isWaiting == false) ?
+                            <>
+                              <label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
+                              <div className="">
+                                <div className="input-group">
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
+                                  </div>
+                                  <div className="input-group-prepend">
+                                    <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="0" max={currentUseState.whiteListPass.q} onChange={handleChange} />
+                                  </div>
+                                  <div className="input-group-prepend">
+                                    <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="input-group-prepend">
-                                <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="0" max={currentUseState.whiteListPass.q} onChange={handleChange} />
-                              </div>
-                              <div className="input-group-prepend">
-                                <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
-                              </div>
-                            </div>
-                          </div>
-                          <Link href="">
-                            <a className="btn btn-success m-r-20 btn-md m-t-30 btn-outline-dark " onClick={() => SendMint({ mint: mintNum })}>
-                              Mint
-                            </a>
-                          </Link>
-                        </> :
-                        <>
-                          <hr />
-                          <h1 className="subtitle font-light">Communicating with the blockchain!</h1>
-                        </>}
+                              <Link href="">
+                                <a className="btn btn-success m-r-20 btn-md m-t-30 btn-outline-dark " onClick={() => SendMint({ mint: mintNum })}>
+                                  Mint
+                                </a>
+                              </Link>
+                            </> :
+                            <>
+                              <hr />
+                              <h1 className="subtitle font-light">Communicating with the blockchain!</h1>
+                            </>}
+                        </>
+                        : <h1 className="subtitle font-light">You are not on the whitelist</h1>
+                      }
+                      <a
+                        onClick={() => walletBridge1.disconnect()}
+                        className="btn btn-md m-t-30 btn-outline-light "
+                      >
+                        Disconnect Wallet
+                      </a>
+                      <br />
+                      <br />
+                      <h4 className="subtitle font-light">
+                        NFT&apos;s minted {currentUseState.numMinted} of {process.env.maxMint}
+                      </h4>
+                      <br />
+                      {currentUseState.hashHtml}
                     </>
-                    : <h1 className="subtitle font-light">You are not on the whitelist</h1>}
-                  <a
-                    onClick={() => walletBridge1.disconnect()}
-                    className="btn btn-md m-t-30 btn-outline-light "
-                  >
-                    Disconnect Wallet
-                  </a>
-                  <br />
-                  <br />
-                  <h4 className="subtitle font-light">
-                    NFT&apos;s minted {currentUseState.numMinted} of {process.env.maxMint}
-                  </h4>
-                  <br />
-                  {currentUseState.hashHtml}
+                    :
+                    <h1 className="subtitle font-light">CLaim Mint is currently closed!</h1>
+                  }
                 </Col>
               }
               <Col lg="6" md="6" >
