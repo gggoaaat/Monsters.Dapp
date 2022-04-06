@@ -49,12 +49,11 @@ const MintPage = () => {
 
   async function SendMint(props) {
 
-    const returnedhash = await walletBridge1.sendMint(props)
-
-    //let retu = await loadup(returnedhash)
-    if (process.env.debug) {
-      console.log(returnedhash)
+    props.mintType = "Public";
+    if (mintNum > 0) {
+      const returnedhash = await walletBridge1.sendMint(props);
     }
+    // setNum(0)
   }
 
   const [formInput, updateFormInput] = useState({

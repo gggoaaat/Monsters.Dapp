@@ -257,12 +257,12 @@ export default function NFTWalletBridge(e) {
                 .then(function (result) {
                     setIsWaiting(false);
                     //alert('Transaction success');
-                    getBlockChainData();
+                    getBlockChainData(props);
                 }).catch(function (e) {
                     setIsWaiting(false);
                     setErrorMessage(e.message);
                     console.log(e);
-                    getBlockChainData();
+                    getBlockChainData(props);
                 });
         }
 
@@ -284,13 +284,13 @@ export default function NFTWalletBridge(e) {
                 })
                 .then(function (result) {
                     setIsWaiting(false);
-                    getBlockChainData();
+                    getBlockChainData(props);
                     //alert('Transaction success');
                 }).catch(function (e) {
                     setIsWaiting(false);
                     setErrorMessage(e.message);
                     console.log(e);
-                    getBlockChainData();
+                    getBlockChainData(props);
                 });
         }
 
