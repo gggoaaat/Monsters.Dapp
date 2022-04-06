@@ -42,7 +42,7 @@ export default function Claim() {
   async function SendMint(props) {
     //console.log(props.mint.toString());
     const returnedhash = await walletBridge1.sendMint(props)
-
+    setNum(0)
     //let retu = await loadup(returnedhash)
     if (process.env.debug) {
       console.log(returnedhash)
@@ -70,7 +70,7 @@ export default function Claim() {
   };
 
   let decNum = () => {
-    if (mintNum > 1) {
+    if (mintNum > 0) {
       setNum(mintNum - 1);
     }
   }
@@ -136,7 +136,10 @@ export default function Claim() {
                     <br />
                   </p>
                   {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
-                    <><label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
+                    <>
+                      {(currentUseState.isWaiting == false) ?
+                      <>
+                      <label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
                       <div className="">
                         <div className="input-group">
                           <div className="input-group-prepend">
@@ -154,9 +157,15 @@ export default function Claim() {
                         <a className="btn btn-success m-r-20 btn-md m-t-30 btn-outline-dark " onClick={() => SendMint({ mint: mintNum })}>
                           Mint
                         </a>
-                      </Link>
+                      </Link> 
+                      
+                      </>:
+                      <>
+                      <hr />
+                      <h1 className="subtitle font-light">Communicating with the blockchain!</h1>
+                      </> }
                     </>
-                    : <h1>You are not on the whitelist</h1>}
+                    : <h1 className="subtitle font-light">You are not on the whitelist</h1>}
                   <a
                     onClick={() => walletBridge1.disconnect()}
                     className="btn btn-md m-t-30 btn-outline-light "
