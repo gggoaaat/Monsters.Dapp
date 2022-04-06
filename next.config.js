@@ -5,7 +5,7 @@ module.exports = {
   analyticsId: '7vsHWbYwcKpA3lFTng2Qe9iNzE7',
   env: {
     siteTitle: "The Monster Community Minting Dapp",
-    contractAddress: "0xfaC1579101886E8837b0abC08bb405BB5c1D4baE",
+    contractAddress: "0x738db360160909825e477dd2cdc06669b5448d18",
     infuraID: "045e9c65387a4200aa8559c347fa19a4",
     defaultGas: 125000,//75000,
     mintType : "Pre-Sale", //Pre-Sale Public
@@ -21,7 +21,7 @@ module.exports = {
     mainWWW: 'https://monsters-dapp.vercel.app/',
     title: 'The Monster Community',
     links : {
-      opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft-2nrkgqhyvw",
+      opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft-acanw1mfe4",
       discord : "https://discord.gg/nvzQRQBn",
       twitter : "https://twitter.com/MONSTERCOMMUNE"
     },
