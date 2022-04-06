@@ -40,10 +40,11 @@ export default function Claim() {
   let currentUseState = walletBridge1.getUseStates();
 
   async function SendMint(props) {
-    //console.log(props.mint.toString());
-    const returnedhash = await walletBridge1.sendMint(props)
+    props.mintType = "Pre-Sale";
+    if (mintNum > 0) {
+      const returnedhash = await walletBridge1.sendMint(props);
+    }
     setNum(0)
-    //let retu = await loadup(returnedhash)
     if (process.env.debug) {
       console.log(returnedhash)
     }
@@ -125,10 +126,10 @@ export default function Claim() {
                 </Col> :
                 <Col lg="6" md="6" className="align-self-center">
                   <br />
-                  <p className="connected">
+                  <p className="connected" style={{ backgroundColor : "RGB(0,0,0,0.5)", padding: "5px"}}>
                     {process.env.mintType} Mint Cost : <strong>{newValue} ETH</strong>
                     <br />
-                    Wallet address: <strong>{currentUseState.xmPower.connectedWalletAddress}</strong>
+                    Wallet address: <strong>{currentUseState.xmPower.filteredAddress}</strong>
                     <br />
                     Eth Balance : <strong>{currentUseState.xmPower.theBalance}</strong>
                     <br />
@@ -138,32 +139,32 @@ export default function Claim() {
                   {(process.env.enforceWhitelist == false || currentUseState.xmPower.isWhiteListed == true) ?
                     <>
                       {(currentUseState.isWaiting == false) ?
-                      <>
-                      <label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
-                      <div className="">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
+                        <>
+                          <label className="connected">Number of Claimable Monsters (1-{currentUseState.whiteListPass.q}):</label>
+                          <div className="">
+                            <div className="input-group">
+                              <div className="input-group-prepend">
+                                <button className="btn btn-outline-primary" type="button" onClick={decNum}>-</button>
+                              </div>
+                              <div className="input-group-prepend">
+                                <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="0" max={currentUseState.whiteListPass.q} onChange={handleChange} />
+                              </div>
+                              <div className="input-group-prepend">
+                                <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
+                              </div>
+                            </div>
                           </div>
-                          <div className="input-group-prepend">
-                            <input type="number" id="mints" name="mints" className="form-control" value={mintNum} min="0" max={currentUseState.whiteListPass.q} onChange={handleChange} />
-                          </div>
-                          <div className="input-group-prepend">
-                            <button className="btn btn-outline-primary" type="button" onClick={incNum}>+</button>
-                          </div>
-                        </div>
-                      </div>
-                      <Link href="">
-                        <a className="btn btn-success m-r-20 btn-md m-t-30 btn-outline-dark " onClick={() => SendMint({ mint: mintNum })}>
-                          Mint
-                        </a>
-                      </Link> 
-                      
-                      </>:
-                      <>
-                      <hr />
-                      <h1 className="subtitle font-light">Communicating with the blockchain!</h1>
-                      </> }
+                          <Link href="">
+                            <a className="btn btn-success m-r-20 btn-md m-t-30 btn-outline-dark " onClick={() => SendMint({ mint: mintNum })}>
+                              Mint
+                            </a>
+                          </Link>
+
+                        </> :
+                        <>
+                          <hr />
+                          <h1 className="subtitle font-light">Communicating with the blockchain!</h1>
+                        </>}
                     </>
                     : <h1 className="subtitle font-light">You are not on the whitelist</h1>}
                   <a

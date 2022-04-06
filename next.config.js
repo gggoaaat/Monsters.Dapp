@@ -22,11 +22,11 @@ module.exports = {
     title: 'The Monster Community',
     links : {
       opensea : "https://testnets.opensea.io/collection/suitsonsuits-nft-acanw1mfe4",
-      discord : "https://discord.gg/nvzQRQBn",
+      discord : "https://discord.gg/y4VNSfJd5Q",
       twitter : "https://twitter.com/MONSTERCOMMUNE"
     },
     maxMint: 3333,
-    maxMintCount: 10,
+    maxMintCount: 20,
     messagehash: '0x865f293da4a629f00bd8072be6115031c608fa4a13b819fd087811752fc8bb90',
     signatureBytes: '0x4b7715f34823936b045d1e5ca6c295b7f5ecff3d0c158118c71441ed217c3ddb026617ce49dc15781bdb25c8c34ed4a1f4d68df6080f6dd0004511cf05032bf01c',
     messagehash2: '0x417ebaa8de17c9a73acf7cf3f6c998ca2dd1e993276cc9dd37dfb7fb0cb197a4',
