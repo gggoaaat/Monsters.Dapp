@@ -1,21 +1,21 @@
 export default function Whitelist4() {
   return {
-    '0xf5e3D593FC734b267b313240A0FcE8E0edEBD69a': {
-      q: 8,
-      monsterPass: {
-        r: '0xd7e0fbf9389667c181c866e2e0a10fb764d032263a2c8eaffd66a1882d5b60c8',
-        s: '0x355cc9d271c26cc8973c2ce1a8944a0f6c06e7326fb20818fec422adc2b23f2f',
-        v: 28
-      }
-    },
-    '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266': {
-      q: 1,
-      monsterPass: {
-        r: '0xf969da4aa58ce4ff02ccaa9e202df98f57b3d99c1ec77c7e63530d790ebd41a1',
-        s: '0x3dcfd53318c45fd1f083026e8fe452d5c349810f72f17cd56fd1c2d75678071e',
-        v: 27
-      }
-    },
+    // '0xf5e3D593FC734b267b313240A0FcE8E0edEBD69a': {
+    //   q: 8,
+    //   monsterPass: {
+    //     r: '0xd7e0fbf9389667c181c866e2e0a10fb764d032263a2c8eaffd66a1882d5b60c8',
+    //     s: '0x355cc9d271c26cc8973c2ce1a8944a0f6c06e7326fb20818fec422adc2b23f2f',
+    //     v: 28
+    //   }
+    // },
+    // '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266': {
+    //   q: 1,
+    //   monsterPass: {
+    //     r: '0xf969da4aa58ce4ff02ccaa9e202df98f57b3d99c1ec77c7e63530d790ebd41a1',
+    //     s: '0x3dcfd53318c45fd1f083026e8fe452d5c349810f72f17cd56fd1c2d75678071e',
+    //     v: 27
+    //   }
+    // },
     '0xf886B127d4E381E7619d2Af1617476fef0d04F8c': {
       q: 39,
       monsterPass: {
