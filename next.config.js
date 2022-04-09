@@ -5,23 +5,23 @@ module.exports = {
   analyticsId: '7vsHWbYwcKpA3lFTng2Qe9iNzE7',
   env: {
     siteTitle: "The Monster Community Minting Dapp",
-    contractAddress: "0xE4b7bd9E4bC6a9acE8e649466f4F9D2AbbB23B57",
+    contractAddress: "0xE28dbFfCc0400D326285FA9761540fA6914B3e11",
     infuraID: "045e9c65387a4200aa8559c347fa19a4",
     defaultGas: 125000,//75000,
     mintType : "Pre-Sale", //Pre-Sale Public
-    enforceWhitelist : false,
+    enforceWhitelist : true,
     ethValue : "0.05",
     ethWLValue : "0.0",
     debug: false,
-    network: 'rinkeby',
-    chainId: 4,
+    network: 'mainnet',
+    chainId: 1,
     //mintType: "Whitelist",
     blockExplorerURL: 'https://rinkeby.etherscan.io/',
     www: 'https://monsters-dapp.vercel.app/',
     mainWWW: 'https://monsters-dapp.vercel.app/',
     title: 'The Monster Community',
     links : {
-      opensea : "https://testnets.opensea.io/collection/the-monster-community-ndfpnmfvke",
+      opensea : "https://opensea.io/collection/the-monster-community",
       discord : "https://discord.gg/y4VNSfJd5Q",
       twitter : "https://twitter.com/MONSTERCOMMUNE"
     },
