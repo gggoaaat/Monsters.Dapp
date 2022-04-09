@@ -153,7 +153,7 @@ const AdminComponents = () => {
             </Col>
             {(!currentUseState.isConnected) ?
               <Col lg="12" md="12" className="align-self-center">
-                <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3>
+                {(currentUseState.network == "rinkeby") ? <h3 style={{ color: "#fff" }}>DEMO ONLY RINKEBY</h3> : ""}
                 <h3 className="title">
                   A blockchain project built by Community.
                 </h3>
