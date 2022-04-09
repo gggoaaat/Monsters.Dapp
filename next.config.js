@@ -17,8 +17,8 @@ module.exports = {
     chainId: 1,
     //mintType: "Whitelist",
     blockExplorerURL: 'https://rinkeby.etherscan.io/',
-    www: 'https://monsters-dapp.vercel.app/',
-    mainWWW: 'https://monsters-dapp.vercel.app/',
+    www: 'https://www.themonstercommunity.com',
+    mainWWW: 'https://www.themonstercommunity.com',
     title: 'The Monster Community',
     links : {
       opensea : "https://opensea.io/collection/the-monster-community",
