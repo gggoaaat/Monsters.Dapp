@@ -16,7 +16,7 @@ module.exports = {
     network: 'mainnet',
     chainId: 1,
     //mintType: "Whitelist",
-    blockExplorerURL: 'https://rinkeby.etherscan.io/',
+    blockExplorerURL: 'https://etherscan.io/',
     www: 'https://www.themonstercommunity.com',
     mainWWW: 'https://www.themonstercommunity.com',
     title: 'The Monster Community',
